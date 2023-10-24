@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/TheItCrOw/VecTop/assets/49918134/6b65222e-04ee-4fba-8c97-79dcf272cc8a"/>
+  <img src="https://github.com/TheItCrOw/VecTop/assets/49918134/24a1af2a-7d66-4611-bf25-9c7da2b20c4a"/>
   <hr/>
   <h1>Vector Database for Topic Extraction using Contextualized Word Embeddings</h1>
 </div
