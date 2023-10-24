@@ -9,4 +9,95 @@
 
 # About
 
+VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being inserted. It is therefore possible to automatically extract the topics of an unkown text and label it.
+
+**Right now, the corpus currently only contains german text and embeddings, but I plan to add support for topic extraction in English as well.**
+
+# Topics
+
+The following topics and their subtopics are used by VecTop to label texts (german | english):
+
+* Politik | Politics
+  <details>
+    <summary>Subtopics</summary>
+      Bundesregierung | Federal Government <br/>
+      Bundestag | Parliament <br/>
+  </details>
+* Ausland | Foreign
+  <details>
+    <summary>Subtopics</summary>
+  USA <br/>
+  Europa | Europe <br/>
+  Nahost | Middle East <br/>
+  Globale Gesellschaft | Global Society <br/>
+  Asien | Asia <br/>
+  Afrika | Africa <br/>
+  </details>
+* Panorama
+  <details>
+    <summary>Subtopics</summary>
+  Justiz & Kriminalität | Law & Crime <br/>
+  Leute | People <br/>
+  Gesellschaft | Society <br/>
+  Bildung | Education <br/>
+  </details>
+* Sport
+  <details>
+    <summary>Subtopics</summary>
+  Ergebnisse & Tabellen | Results and Tables <br/>
+  Liveticker <br/>
+  Fußball | Soccer <br/>
+  Bundesliga <br/>
+  Champions League <br/>
+  Formel 1 | Formular 1 <br/>
+  Wintersport | Winter Sports <br/>
+  </details>
+* Wirtschaft | Economy
+  <details>
+    <summary>Subtopics</summary>
+  Börse | Stock Market <br/>
+  Verbraucher & Service | Consumers & Service <br/>
+  Versicherungen | Insurance <br/>
+  Unternehmen & Märkte | Companies & Markets <br/>
+  Staat & Soziales | State & Social <br/>
+  </details>
+* Wissenschaft | Science <br/>
+  <details>
+    <summary>Subtopics</summary>
+  Klimakrise | Global Warming <br/>
+  Mensch | Human <br/>
+  Natur | Nature <br/>
+  Technik | Technology <br/>
+  Weltall | Space <br/>
+  Medizin | Medicine <br/>
+  </details>
+* Netzwelt | Network World
+  <details>
+    <summary>Subtopics</summary>
+  Netzpolitik | Network Politics <br/>
+  Web <br/>
+  Gadgets <br/>
+  Games <br/>
+  Apps <br/>
+  </details>
+* Kultur | Culture
+  <details>
+    <summary>Subtopics</summary>
+  Kino | Cinema <br/>
+  Musik | Music <br/>
+  TV <br/>
+  Literatur | Literature <br/>
+  </details>
+* Leben | Life
+  <details>
+    <summary>Subtopics</summary>
+  Reise | Trip <br/>
+  Stil | Style <br/>
+  Gesundheit | Health <br/>
+  Familie | Family <br/>
+  Psychologie | Psychology <br/>
+  </details>
+
+# Usage
+
 
