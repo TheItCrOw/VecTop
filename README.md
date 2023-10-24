@@ -98,6 +98,8 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Psychologie | Psychology <br/>
   </details>
 
-# Usage
+# Corpus
+
+I'm constantly expanding the VecTop corpus. As of right now, I've scraped Spiegel-Online articles and their categories. I utilize OpenAI's text-embedding-ada-002 for word embedding. These vectors are stored in a PostgresSQL database with the extension for vector databases included. **Currently, the corpus has approximately 1 million word embeddings, each representing a fragment of text alongside annotated topics.**
 
 
