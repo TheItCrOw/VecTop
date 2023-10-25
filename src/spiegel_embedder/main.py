@@ -89,6 +89,7 @@ def generate_spiegel_embeddings_summarized(date):
 
     for article in articles:
         summary = tr_summarize(article['text'], 5)
+        embeddings = []
         if(len(summary) < 10):
             continue
         try:
@@ -135,6 +136,7 @@ def generate_spiegel_embeddings_sentenced(date):
     for article in articles:
         sentences = [i for i in nlp(article['text']).sents]
         # We want to embed each sentence
+        embeddings = []
         c = 0
         for sent in sentences:
             try:
@@ -199,28 +201,30 @@ def check_test_summarized():
     results = []
     embedder = chatgpt_api(get_openai_api_key())
     for s in speeches:
-        print(s)
         content = s[1]
         top_topics = []
         sub_topics = []
         topics = []
         if(content == ''):
             continue
+        print("=================== \n")
         print(str(content))
         print("=================== \n")
         embedding = np.array(embedder.embed(str(content)))
         with psycopg.connect(connection_string) as conn:
             register_vector(conn)
-            sim = conn.execute('SELECT * FROM ' + summarized_table + ' ORDER BY embedding <=> %s LIMIT 1', (embedding,)).fetchall() 
-            print(sim)
-            top_topics.append(sim[0][5])
-            sub_topics.append(sim[0][6])
-            topics.append(sim[0][3])
-        print("==========================\n\n")
+            sim = conn.execute('SELECT * FROM ' + summarized_table + ' ORDER BY embedding <=> %s LIMIT 5', (embedding,)).fetchall() 
+            #print(sim)
+            for vec in sim:
+                top_topics.append(vec[5])
+                sub_topics.append(vec[6])
+                topics.append(vec[3])
+        print("==========================\n")
 
         print(top_topics)
         print(sub_topics)
         print(topics)
+        print("==========================\n\n\n")
         result = {
             'full_speech': s[0],
             'summary': content,
@@ -236,9 +240,13 @@ def check_test_summarized():
 if __name__ == "__main__":
     connection_string = get_connection_string()
     check_test_summarized()
-    #start_date = date(2023, 6, 11)
-    #end_date = date(2024, 1, 1)
+    #start_date = date(2018, 5, 21)
+    #end_date = date(2019, 12, 31)
     #delta = timedelta(days=1)
     #while start_date <= end_date:
-        #generate_spiegel_embeddings_summarized(start_date)
-        #start_date += delta
+    #    try:
+    #        generate_spiegel_embeddings_summarized(start_date)
+    #        start_date += delta
+    #    except Exception as ex:
+    #        print("Unknown error. Restarting in a bit.")
+    #        time.sleep(60)
