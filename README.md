@@ -110,7 +110,7 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
 * Clone the repository ```git clone https://github.com/TheItCrOw/VecTop.git```
 * Install the requirements ```pip install -r requirements.txt```
 * See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class
-  - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key.
+  - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key. The connection string has to be a PostgresSQL connectionstring format: ```postgresql://user:pw@host:port/database```
 * Extract Topics!
 
 🟥 This is a first version of the VecTop corpus which hasn't been evaluated thoroughly yet. 🟥
