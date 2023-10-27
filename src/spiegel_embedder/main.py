@@ -8,13 +8,120 @@ from pgvector.psycopg import register_vector
 import json
 from chatgpt import chatgpt_api
 from spiegel_online import spiegel_api
+from translate import translator
 import spacy
 
 connection_string = ''
 sentenced_table = 'spiegel_embeddings'
 summarized_table = 'spiegel_embeddings_summarized'
+summarized_table_eng = 'spiegel_embeddings_summarized_eng'
 nlp = spacy.load('de_core_news_sm')
 nlp.add_pipe("textrank")
+
+
+ger_eng_channels = {
+    # channels
+    'Ausland': 'Foreign Countries',
+    'Backstage': 'Backstage',
+    'Community': 'Community',
+    'Familie': 'Family',
+    'Fitness': 'Fitness',
+    'Geschichte': 'History',
+    'Gesundheit': 'Health',
+    'International': 'International',
+    'Job & Karriere': 'Jobs & Career',
+    'Kultur': 'Culture',
+    'Mobilität': 'Mobility',
+    'Netzwelt': 'Network World',
+    'Panorama': 'Panorama',
+    'Partnerschaft': 'Partnership',
+    'Politik': 'Politics',
+    'Psychologie': 'Psychology',
+    'Reise': 'Travel',
+    'Services': 'Services',
+    'Sport': 'Sport',
+    'Start': 'Start',
+    'Stil': 'Style',
+    'Tests': 'Tests',
+    'Wirtschaft': 'Economy',
+    'Wissenschaft': 'Science',
+
+    # subchannels
+    'American Football': 'American Football',
+    'Anzeige': 'Advertisement',
+    'Apps': 'Apps',
+    'Auto-Zubehör': 'Cars',
+    'Basketball': 'Basketball',
+    'BeyondTomorrow': 'BeyondTomorrow',
+    'Bildung': 'Education',
+    'Brettspiele': 'Board Games',
+    'Business': 'Business',
+    'Camping': 'Camping',
+    'default': 'default',
+    'Deutschland': 'Germany',
+    'Diagnose': 'Diagnose',
+    'Diagnose & Therapie': 'Diagnose & Therapy',
+    'Eishockey': 'Ice Hockey',
+    'Elektronik': 'Electronics',
+    'Elterncouch': 'Parents',
+    'Ernährung & Fitness': 'Nutritions & Fitness',
+    'Europa': 'Europe',
+    'Europe': 'Europe',
+    'Fahrbericht': 'Driving Report',
+    'Fahrkultur': 'Driving Culture',
+    'Fahrrad & Zubehör': 'Bicycle & Accessories',
+    'Fernweh': 'Wanderlust',
+    'Formel 1': 'Formula 1',
+    'Formel1': 'Formula 1',
+    'Fußball-News': 'Soccer News',
+    'Gadgets': 'Gadgets',
+    'Games': 'Games',
+    'Garten': 'Garden',
+    'Germany': 'Germany',
+    'Gesellschaft': 'Society',
+    'Golf': 'Golf',
+    'Handball': 'Handball',
+    'Haushalt': 'Household',
+    'Justiz': 'Law',
+    'Justiz & Kriminalität': 'Law & Order',
+    'Kino': 'Cinema',
+    'Küche': 'Kitchen',
+    'Leute': 'People',
+    'Ligue 1': 'Ligue 1',
+    'Literatur': 'Literature',
+    'Medizin': 'Medicine',
+    'Mensch': 'Human',
+    'Musik': 'Music',
+    'Natur': 'Nature',
+    'Netzpolitik': 'Network Politics',
+    'Olympia': 'Olympics',
+    'Premier League': 'Premier League',
+    'Primera Division': 'Primera Division',
+    'Psychologie': 'Psychology',
+    'S-Magazin': 'default',
+    'Schwangerschaft & Kind': 'Pregnancy & Children',
+    'Serie A': 'Seria A',
+    'Sex': 'Sex',
+    'Sex & Partnerschaft': 'Sex & Partnership',
+    'Soziales': 'Social',
+    'Staat & Soziales': 'State & Social',
+    'Städte': 'Cities',
+    'Städtereisen': 'City Travelling',
+    'Technik': 'Technology',
+    'Tennis': 'Tennis',
+    'Tests': 'Tests',
+    'Tomorrow': 'Tomorrow',
+    'TV': 'TV',
+    'Unternehmen': 'Companies',
+    'Unternehmen & Märkte': 'Companies & Markets',
+    'Verbraucher & Service': 'Consumers & Service',
+    'Web': 'Web',
+    'Weltall': 'Space',
+    'Wintersport': 'Winter Sports',
+    'World': 'World',
+    'Zeitgeist': 'Current Mindset',
+    'Zeitzeugen': 'Time Witness'
+}
 
 
 def write_to_json_file(name, data):
@@ -42,6 +149,24 @@ def insert_spiegel_embedding(item, table):
                  item['embedding'],
                  item['article_id'],
                  item['order']
+                 ))
+            conn.commit()
+
+
+def insert_spiegel_embedding_eng(item, table):
+    with psycopg.connect(connection_string) as conn:
+        register_vector(conn)
+        with conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO " + table +
+                " (content, url, channel, subchannel, embedding, article_id)" + 
+                " VALUES (%s, %s, %s, %s, %s, %s)",
+                (item['content'],
+                 item['url'],
+                 item['channel'],
+                 item['subchannel'],
+                 item['embedding'],
+                 item['article_id'],
                  ))
             conn.commit()
 
@@ -237,10 +362,53 @@ def check_test_summarized():
     write_to_json_file('speeches_pred_4k.json', results)
 
 
+def generate_spiegel_embeddings_summarized_eng(trans, offset, limit):
+    '''
+    Here we dont fetch the articles from spiegel again. We use already
+    fetched articles in the database and translate and embed them again.
+    '''
+    embedder = chatgpt_api(get_openai_api_key())
+
+    def handle_one(r):
+        eng = trans.translate_german_to_english(r[0])
+        channel = ger_eng_channels[r[5]] if r[5] in ger_eng_channels else r[5]
+        subchannel = ger_eng_channels[r[6]] if r[6] in ger_eng_channels else r[6]
+
+        try:
+            embeddings = embedder.embed(eng)
+        except Exception as ex:
+            print("Error in embedding, prolly timeout. Waiting then retrying")
+            time.sleep(120)
+            handle_one(r)
+
+        insert_spiegel_embedding_eng({
+            'content': eng,
+            'url': r[4],
+            'channel': channel,
+            'subchannel': subchannel,
+            'embedding': embeddings,
+            'article_id': r[9]
+        }, summarized_table_eng)
+
+    with psycopg.connect(connection_string) as conn:
+        result = conn.execute(
+            'SELECT content, headline_main, headline_social, breadcrumbs, url, channel, subchannel, intro, topics, article_id FROM ' + summarized_table + ' OFFSET ' + str(offset) + ' LIMIT ' + str(limit)).fetchall()
+        for r in result:
+            handle_one(r)
+
+    print('Done with offset ' + str(offset) + ' and limit ' + str(limit))
+
+
 if __name__ == "__main__":
     connection_string = get_connection_string()
-    check_test_summarized()
-    #start_date = date(2018, 5, 21)
+    trans = translator()
+    limit = 25
+    for i in range(0, 99999999, limit):
+        generate_spiegel_embeddings_summarized_eng(trans, i, limit)
+
+    # check_test_summarized()
+
+    #start_date = date(2019, 2, 4)
     #end_date = date(2019, 12, 31)
     #delta = timedelta(days=1)
     #while start_date <= end_date:

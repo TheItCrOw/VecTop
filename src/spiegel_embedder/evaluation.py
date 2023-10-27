@@ -1,8 +1,11 @@
 from chatgpt import chatgpt_api
 import psycopg
 import random
+import os
 import json
 
+
+cls = lambda: os.system('cls')
 chat_gpt = {}
 
 german_prompt = '''
@@ -30,6 +33,11 @@ def get_openai_api_key():
 def load_labeled_speeches_json():
     with open("E:\\Python_Projects\\TopicExtracter\\src\\spiegel_embedder\\testing\\speeches_pred_4k.json", encoding='utf-8') as f:
         return json.loads(f.read())
+
+
+def load_predicted_topics_db():
+    with psycopg.connect(get_connection_string()) as conn:
+        return conn.execute('SELECT * FROM predicted_topics WHERE topic_correct IS NULL ORDER BY id ASC').fetchall()
 
 
 def insert_evaluation(full_text,
@@ -66,7 +74,7 @@ def evaluate_with_chatgpt(text, topic, subtopic):
     return chat_gpt.get_response(prompt)
 
 
-def evaulate_datasets(datasets):
+def evaulate_datasets_automatically(datasets):
     # Evaluates a bunch of labeled datasets
     for d in random.sample(datasets, 100):
         topic = d['pred_channel'][0]
@@ -81,8 +89,29 @@ def evaulate_datasets(datasets):
         print('\n Result: ' + evaluate + '\n\n')
 
 
+def evaluate_datasets_manually(datasets):
+    with psycopg.connect(get_connection_string()) as conn:
+        for d in datasets:
+            cls()
+            print("===== A new prediction =====\n")
+            print("id: " + str(d[7]))
+            print(d[3])
+            print("\n===== Topic: =====")
+            print(d[0])
+            print("Ok? Type 1, else 2")
+            inp = int(input())
+            conn.execute('UPDATE predicted_topics SET topic_correct = ' + str(inp == 1) + ' where id = ' + str(d[7]))
+            conn.commit()
+            print("\n===== Subtopic: =====")
+            print(d[1])
+            inp = int(input())
+            print("Ok? Type 1, else 2")
+            conn.execute('UPDATE predicted_topics SET subtopic_correct = ' + str(inp == 1) + ' where id = ' + str(d[7]))
+            conn.commit()
+
+
 if __name__ == "__main__":
     chat_gpt = chatgpt_api(get_openai_api_key())
 
-    datasets = load_labeled_speeches_json()
-    evaulate_datasets(datasets)
+    datasets = load_predicted_topics_db()
+    evaluate_datasets_manually(datasets)

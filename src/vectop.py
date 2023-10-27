@@ -26,7 +26,7 @@ class vectop:
 
     def tr_summarize(self, text, top):
         ''' summarizes the text with text rank'''
-        doc = nlp(text)
+        doc = self.nlp(text)
         summary = ''
         # Create the summary
         for sentence in doc._.textrank.summary(limit_sentences=top):
@@ -50,7 +50,7 @@ class vectop:
         sentences = [str(i) for i in self.nlp(text).sents]
         final = ' '.join(sentences)  # This is the text we will extract from
         if(len(sentences) > self.max_sent):
-            final = tr_summarize(text, self.max_sent)
+            final = self.tr_summarize(text, self.max_sent)
 
         # Make the embeddings
         embedded = np.array(self.embed(final.strip()))
