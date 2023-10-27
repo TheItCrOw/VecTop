@@ -107,12 +107,12 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
 
 * Download the Corpus
 * Import the .sql into a PostgresSQL database with the [pgVector](https://github.com/pgvector/pgvector) extension installed.
+  - You can of course import the corpus into any DB of your liking, just make sure the DB can handle vectors.
   - As an alternative, the corpus can also be downloaded as a .csv file.
 * Clone the repository ```git clone https://github.com/TheItCrOw/VecTop.git```
 * Install the requirements ```pip install -r requirements.txt```
 * See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class
   - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key. The connection string has to be a PostgresSQL connectionstring format: ```postgresql://user:pw@host:port/database```
-  - You can of course import the corpus into any DB of your liking, just make sure the DB can handle vectors.
 * Extract Topics!
 
 🟥 This is a first version of the VecTop corpus which hasn't been evaluated thoroughly yet. 🟥
