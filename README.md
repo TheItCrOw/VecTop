@@ -98,8 +98,25 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Psychologie | Psychology <br/>
   </details>
 
-# Corpus
+# German Corpus V1
+![german_v1_channels](https://github.com/TheItCrOw/VecTop/assets/49918134/01602db2-2a1f-4406-9157-cfe6855ce136)
 
-I'm constantly expanding the VecTop corpus. As of right now, I've scraped Spiegel-Online articles and their categories as a basis for labeled texts. I utilize OpenAI's text-embedding-ada-002 for word embedding. These vectors are stored in a PostgresSQL database with the extension for vector databases included. **Currently, the corpus has approximately 1 million word embeddings, each representing a fragment of text alongside annotated topics.**
+Version 1 of the German Summarized Spiegel Embeddings Corpus is now available for download and usage. This version contains >200k articles which have been firstly summarized with TextRank and then embedded with OpenAI's ```text-embedding-ada-002```. Testing VecTop on 100 speeches of the German Parliament to extract topics showed a **98%** correctness on main topics and **93%** correctness on subtopics.
+
+## Usage
+
+* Download the Corpus
+* Import the .csv into a PostgresSQL database with the [pgVector](https://github.com/pgvector/pgvector) extension installed.
+* Clone the repository ```git clone https://github.com/TheItCrOw/VecTop.git```
+* Install the requirements ```pip install -r requirements.txt```
+* See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class
+  - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key.
+* Extract Topics!
+
+🟥 This is a first version of the VecTop corpus which hasn't been evaluated thoroughly yet. 🟥
+
+# English Corpus V1
+
+Coming soon.
 
 
