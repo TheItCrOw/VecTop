@@ -1,0 +1,9 @@
+numpy==1.26.1
+openai==0.28.1
+pgvector==0.2.3
+psycopg==3.1.12
+pytextrank==3.2.5
+Requests==2.31.0
+spacy==3.7.2
+spiegel_scraper==1.1.1
+transformers==4.34.1

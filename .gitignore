@@ -1,3 +1,4 @@
+private
 env
 src/spiegel_embedder/openai_api_key.txt
 src/spiegel_embedder/pg_connection_string.txt
