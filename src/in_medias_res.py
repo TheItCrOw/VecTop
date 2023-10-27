@@ -69,4 +69,4 @@ def extract_from_many(v):
 if __name__ == "__main__":
     v = vectop(get_openai_api_key(), get_connection_string())
     print("Loaded VecTop module")
-    extract_from_many(v)
+    example(v)
