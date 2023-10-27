@@ -9,7 +9,7 @@
 
 # About
 
-VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being inserted. It is therefore possible to automatically extract the topics of an unkown text and label it.
+VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being extracted from. It is therefore possible to automatically extract the topics of an unkown text and label it.
 
 **Right now, the corpus currently only contains german text and embeddings, but I plan to add support for topic extraction in English as well.**
 
@@ -115,7 +115,7 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
   - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key. The connection string has to be a PostgresSQL connectionstring format: ```postgresql://user:pw@host:port/database```
 * Extract Topics!
 
-🟥 This is a first version of the VecTop corpus which hasn't been evaluated thoroughly yet. 🟥
+🟥 **This is a first version of the VecTop corpus which hasn't been evaluated thoroughly yet.** 🟥
 
 # English Corpus V1
 
