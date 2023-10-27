@@ -101,7 +101,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
 # German Corpus V1
 ![german_v1_channels](https://github.com/TheItCrOw/VecTop/assets/49918134/01602db2-2a1f-4406-9157-cfe6855ce136)
 
-Version 1 of the German Summarized Spiegel Embeddings Corpus is now available for download and usage. This version contains >200k articles which have been firstly summarized with TextRank and then embedded with OpenAI's ```text-embedding-ada-002```. Testing VecTop on 100 speeches of the German Parliament to extract topics showed a **98%** correctness on main topics and **93%** correctness on subtopics.
+Version 1 of the German Summarized Spiegel Embeddings Corpus is now available for download and usage. This version contains >200k articles (2017-10-01 -> 2023-10-23) which have been firstly summarized with TextRank and then embedded with OpenAI's ```text-embedding-ada-002```. Testing VecTop on 100 speeches of the German Parliament to extract topics showed a **98%** correctness on main topics and **93%** correctness on subtopics.
 
 ## Usage
 
