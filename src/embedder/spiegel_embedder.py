@@ -401,20 +401,20 @@ def generate_spiegel_embeddings_summarized_eng(trans, offset, limit):
 
 if __name__ == "__main__":
     connection_string = get_connection_string()
-    trans = translator()
-    limit = 25
-    for i in range(0, 99999999, limit):
-        generate_spiegel_embeddings_summarized_eng(trans, i, limit)
+    # trans = translator()
+    # limit = 25
+    # for i in range(1001, 99999999, limit):
+    #    generate_spiegel_embeddings_summarized_eng(trans, i, limit)
 
     # check_test_summarized()
 
-    #start_date = date(2019, 2, 4)
-    #end_date = date(2019, 12, 31)
-    #delta = timedelta(days=1)
-    #while start_date <= end_date:
-    #    try:
-    #        generate_spiegel_embeddings_summarized(start_date)
-    #        start_date += delta
-    #    except Exception as ex:
-    #        print("Unknown error. Restarting in a bit.")
-    #        time.sleep(60)
+    start_date = date(2016, 11, 19)
+    end_date = date(2000, 1, 1)
+    delta = timedelta(days=1)
+    while start_date >= end_date:
+        try:
+            generate_spiegel_embeddings_summarized(start_date)
+            start_date -= delta
+        except Exception as ex:
+            print("Unknown error. Restarting in a bit.")
+            time.sleep(60)
