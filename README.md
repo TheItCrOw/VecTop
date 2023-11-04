@@ -9,9 +9,13 @@
 
 # About
 
-VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being extracted from. It is therefore possible to automatically extract the topics of an unkown text and label it.
+VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being extracted from. It is therefore possible to automatically extract the topics of an unkown text and label it. 
 
-**Right now, the corpus currently only contains german text and embeddings, but I plan to add support for topic extraction in English as well.**
+# Language Support
+
+I use Cross-Lingual Word Embeddings which offer usages for multiple languages. As off now, VecTop supports the following languages:
+* German
+* English
 
 # Topics
 
@@ -111,7 +115,7 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
   - As an alternative, the corpus can also be downloaded as a .csv file.
 * Clone the repository ```git clone https://github.com/TheItCrOw/VecTop.git```
 * Install the requirements ```pip install -r requirements.txt```
-* See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class
+* See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class.
   - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key. The connection string has to be a PostgresSQL connectionstring format: ```postgresql://user:pw@host:port/database```
 * Extract Topics!
 
