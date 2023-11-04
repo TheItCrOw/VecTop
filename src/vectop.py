@@ -15,6 +15,109 @@ class vectop:
         self.max_sent = 5
         openai.api_key = openai_api_key
         self.connection_string = connection_string
+        self.ger_eng_channels = {
+            # channels
+            'Ausland': 'Foreign Countries',
+            'Backstage': 'Backstage',
+            'Community': 'Community',
+            'Familie': 'Family',
+            'Fitness': 'Fitness',
+            'Geschichte': 'History',
+            'Gesundheit': 'Health',
+            'International': 'International',
+            'Job & Karriere': 'Jobs & Career',
+            'Kultur': 'Culture',
+            'Mobilität': 'Mobility',
+            'Netzwelt': 'Network World',
+            'Panorama': 'Panorama',
+            'Partnerschaft': 'Partnership',
+            'Politik': 'Politics',
+            'Psychologie': 'Psychology',
+            'Reise': 'Travel',
+            'Services': 'Services',
+            'Sport': 'Sport',
+            'Start': 'Start',
+            'Stil': 'Style',
+            'Tests': 'Tests',
+            'Wirtschaft': 'Economy',
+            'Wissenschaft': 'Science',
+
+            # subchannels
+            'American Football': 'American Football',
+            'Anzeige': 'Advertisement',
+            'Apps': 'Apps',
+            'Auto-Zubehör': 'Cars',
+            'Basketball': 'Basketball',
+            'BeyondTomorrow': 'BeyondTomorrow',
+            'Bildung': 'Education',
+            'Brettspiele': 'Board Games',
+            'Business': 'Business',
+            'Camping': 'Camping',
+            'default': 'default',
+            'Deutschland': 'Germany',
+            'Diagnose': 'Diagnose',
+            'Diagnose & Therapie': 'Diagnose & Therapy',
+            'Eishockey': 'Ice Hockey',
+            'Elektronik': 'Electronics',
+            'Elterncouch': 'Parents',
+            'Ernährung & Fitness': 'Nutritions & Fitness',
+            'Europa': 'Europe',
+            'Europe': 'Europe',
+            'Fahrbericht': 'Driving Report',
+            'Fahrkultur': 'Driving Culture',
+            'Fahrrad & Zubehör': 'Bicycle & Accessories',
+            'Fernweh': 'Wanderlust',
+            'Formel 1': 'Formula 1',
+            'Formel1': 'Formula 1',
+            'Fußball-News': 'Soccer News',
+            'Gadgets': 'Gadgets',
+            'Games': 'Games',
+            'Garten': 'Garden',
+            'Germany': 'Germany',
+            'Gesellschaft': 'Society',
+            'Golf': 'Golf',
+            'Handball': 'Handball',
+            'Haushalt': 'Household',
+            'Justiz': 'Law',
+            'Justiz & Kriminalität': 'Law & Order',
+            'Kino': 'Cinema',
+            'Küche': 'Kitchen',
+            'Leute': 'People',
+            'Ligue 1': 'Ligue 1',
+            'Literatur': 'Literature',
+            'Medizin': 'Medicine',
+            'Mensch': 'Human',
+            'Musik': 'Music',
+            'Natur': 'Nature',
+            'Netzpolitik': 'Network Politics',
+            'Olympia': 'Olympics',
+            'Premier League': 'Premier League',
+            'Primera Division': 'Primera Division',
+            'Psychologie': 'Psychology',
+            'S-Magazin': 'default',
+            'Schwangerschaft & Kind': 'Pregnancy & Children',
+            'Serie A': 'Seria A',
+            'Sex': 'Sex',
+            'Sex & Partnerschaft': 'Sex & Partnership',
+            'Soziales': 'Social',
+            'Staat & Soziales': 'State & Social',
+            'Städte': 'Cities',
+            'Städtereisen': 'City Travelling',
+            'Technik': 'Technology',
+            'Tennis': 'Tennis',
+            'Tests': 'Tests',
+            'Tomorrow': 'Tomorrow',
+            'TV': 'TV',
+            'Unternehmen': 'Companies',
+            'Unternehmen & Märkte': 'Companies & Markets',
+            'Verbraucher & Service': 'Consumers & Service',
+            'Web': 'Web',
+            'Weltall': 'Space',
+            'Wintersport': 'Winter Sports',
+            'World': 'World',
+            'Zeitgeist': 'Current Mindset',
+            'Zeitzeugen': 'Time Witness'
+        }
 
     def embed(self, text):
         response = openai.Embedding.create(
@@ -42,8 +145,8 @@ class vectop:
     def extract_topics(self, text, language):
         '''Extract topics from a given text'''
         # Language code by: http://www.lingoes.net/en/translator/langcode.htm
-        if(language != 'de-DE'):
-            raise Exception("Currently, only the German language is supported")
+        if(language not in ['de-DE', 'en']):
+            raise Exception("Currently, only German and English is supported")
 
         # First step is too check how long the text is. If it exceeds a
         # threshold of X sentences, summarize it.
@@ -64,6 +167,10 @@ class vectop:
             # Index 5: main_topic, index 6: sub_topic, index 3: breadcrumbs
             t = vec[5]
             st = vec[6]
+            # Translate the topics for the english language then
+            if(language == 'en'):
+                t = self.ger_eng_channels[t]
+                st = self.ger_eng_channels[st]
 
             # We always take the nearest embedding
             if(c == 0):

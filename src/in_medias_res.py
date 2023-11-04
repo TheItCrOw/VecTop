@@ -5,8 +5,11 @@ import uuid
 import time
 
 root = os.getcwd()
-example_text = '''
+example_text_ger = '''
 Deutschland hat seit 2022 einen Wachstumsnachlass von 1,5%, die Schulden werden immer größer.
+'''
+example_text_eng = '''
+Germany has experienced a 1.5% decline in growth since 2022 and its debt is getting bigger and bigger.
 '''
 
 
@@ -25,9 +28,15 @@ def get_labeled_speeches(offset):
         return conn.execute('SELECT * FROM labeled_speeches' + ' OFFSET ' + str(offset)).fetchall()
 
 
-def example(v):
+def ger_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text, 'de-DE')
+    topics = v.extract_topics(example_text_ger, 'de-DE')
+    print(topics)
+
+
+def eng_example(v):
+    '''A simple example of vectop for one text'''
+    topics = v.extract_topics(example_text_eng, 'en')
     print(topics)
 
 
@@ -69,4 +78,4 @@ def extract_from_many(v):
 if __name__ == "__main__":
     v = vectop(get_openai_api_key(), get_connection_string())
     print("Loaded VecTop module")
-    example(v)
+    eng_example(v)

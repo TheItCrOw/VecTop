@@ -8,6 +8,8 @@ from chatgpt import chatgpt_api
 from ny_times import times_api
 
 connection_string = ''
+start_date = date(2023, 5, 27)
+end_date = date(2000, 1, 1)
 
 
 def get_connection_string():
@@ -71,6 +73,7 @@ def generate_times_embeddings(year, month):
         print("Error while fetching articles, maybe a timeout. Retrying soon")
         print(ex)
         time.sleep(120)
+        generate_times_embeddings(year, month)
 
     for article in articles:
         # The full text is not provided within the api. I could scrape it, but 
@@ -87,7 +90,8 @@ def generate_times_embeddings(year, month):
             print(ex)
             print("Waiting a few seconds, this is probably due to timeout.")
             time.sleep(300)
-            generate_times_embeddings(year, month)
+            start_date -= relativedelta(months=+1)
+            generate_times_embeddings(start_date.year, start_date.month)
 
         # Now store the relevant data in the database
         try:
@@ -112,8 +116,6 @@ def generate_times_embeddings(year, month):
 
 if __name__ == "__main__":
     connection_string = get_connection_string()
-    start_date = date(2023, 10, 31)
-    end_date = date(2000, 1, 1)
     while start_date >= end_date:
         try:
             generate_times_embeddings(start_date.year, start_date.month)
