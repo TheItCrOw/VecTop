@@ -11,12 +11,12 @@ Deutschland hat seit 2022 einen Wachstumsnachlass von 1,5%, die Schulden werden 
 
 
 def get_connection_string():
-    with open('./spiegel_embedder/pg_connection_string.txt', 'r') as f:
+    with open('./embedder/pg_connection_string.txt', 'r') as f:
         return f.read()
 
 
 def get_openai_api_key():
-    with open('./spiegel_embedder/openai_api_key.txt', 'r') as f:
+    with open('./embedder/openai_api_key.txt', 'r') as f:
         return f.read()
 
 
