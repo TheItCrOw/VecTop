@@ -105,7 +105,7 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
 
 ## Usage
 
-* Download the Corpus
+* [Download](https://www.kaggle.com/datasets/kevinbnisch/vectordb-for-topic-extraction-with-word-embeddings/data) the Corpus
 * Import the .sql into a PostgresSQL database with the [pgVector](https://github.com/pgvector/pgvector) extension installed.
   - You can of course import the corpus into any DB of your liking, just make sure the DB can handle vectors.
   - As an alternative, the corpus can also be downloaded as a .csv file.
