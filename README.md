@@ -9,21 +9,25 @@
 
 # About
 
-VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being extracted from. It is therefore possible to automatically extract the topics of an unkown text and label it.
+VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being extracted from. It is therefore possible to automatically extract the topics of an unkown text and label it. 
 
-**Right now, the corpus currently only contains german text and embeddings, but I plan to add support for topic extraction in English as well.**
+# Language Support
+
+I use Cross-Lingual Word Embeddings which offer usages for multiple languages. As off now, VecTop supports the following languages:<br/>
+:green_circle: German <br/>
+:green_circle: English <br/>
 
 # Topics
 
 The following topics and their subtopics are used by VecTop to label texts (german | english):
 
-* Politik | Politics
+* Politik | Politics :classical_building:
   <details>
     <summary>Subtopics</summary>
       Bundesregierung | Federal Government <br/>
       Bundestag | Parliament <br/>
   </details>
-* Ausland | Foreign
+* Ausland | Foreign :earth_asia:
   <details>
     <summary>Subtopics</summary>
   USA <br/>
@@ -33,7 +37,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Asien | Asia <br/>
   Afrika | Africa <br/>
   </details>
-* Panorama
+* Panorama :sunrise_over_mountains:
   <details>
     <summary>Subtopics</summary>
   Justiz & Kriminalität | Law & Crime <br/>
@@ -41,7 +45,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Gesellschaft | Society <br/>
   Bildung | Education <br/>
   </details>
-* Sport
+* Sport :football:
   <details>
     <summary>Subtopics</summary>
   Ergebnisse & Tabellen | Results and Tables <br/>
@@ -52,7 +56,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Formel 1 | Formular 1 <br/>
   Wintersport | Winter Sports <br/>
   </details>
-* Wirtschaft | Economy
+* Wirtschaft | Economy :moneybag:
   <details>
     <summary>Subtopics</summary>
   Börse | Stock Market <br/>
@@ -61,7 +65,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Unternehmen & Märkte | Companies & Markets <br/>
   Staat & Soziales | State & Social <br/>
   </details>
-* Wissenschaft | Science <br/>
+* Wissenschaft | Science :telescope:
   <details>
     <summary>Subtopics</summary>
   Klimakrise | Global Warming <br/>
@@ -71,7 +75,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Weltall | Space <br/>
   Medizin | Medicine <br/>
   </details>
-* Netzwelt | Network World
+* Netzwelt | Network World :globe_with_meridians:
   <details>
     <summary>Subtopics</summary>
   Netzpolitik | Network Politics <br/>
@@ -80,7 +84,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   Games <br/>
   Apps <br/>
   </details>
-* Kultur | Culture
+* Kultur | Culture :world_map:
   <details>
     <summary>Subtopics</summary>
   Kino | Cinema <br/>
@@ -88,7 +92,7 @@ The following topics and their subtopics are used by VecTop to label texts (germ
   TV <br/>
   Literatur | Literature <br/>
   </details>
-* Leben | Life
+* Leben | Life :couple:
   <details>
     <summary>Subtopics</summary>
   Reise | Trip <br/>
@@ -111,7 +115,7 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
   - As an alternative, the corpus can also be downloaded as a .csv file.
 * Clone the repository ```git clone https://github.com/TheItCrOw/VecTop.git```
 * Install the requirements ```pip install -r requirements.txt```
-* See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class
+* See ```in_medias_res.py``` for an example and usage of the ```vectop.py``` class.
   - Change the ```get_connection_string()``` and ```get_openai_api_key()``` to return your personal connection string and openAI api key. The connection string has to be a PostgresSQL connectionstring format: ```postgresql://user:pw@host:port/database```
 * Extract Topics!
 
