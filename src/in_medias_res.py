@@ -30,13 +30,13 @@ def get_labeled_speeches(offset):
 
 def ger_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text_ger, 'de-DE')
+    topics = v.extract_topics(example_text_ger, 'de-DE')[0]
     print(topics)
 
 
 def eng_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text_eng, 'en')
+    topics = v.extract_topics(example_text_eng, 'en')[0]
     print(topics)
 
 

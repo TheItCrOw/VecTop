@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/b0888ca2eb.js"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static', filename='css/site.css') }}">
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static', filename='css/bg-anim.css') }}">
+        <link rel="icon" type="image/x-icon"
+            href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+
+        <title>VecTop Topic Extraction</title>
+    </head>
+    <body>
+        <div class="header">
+            <div class="container">
+                <div class="flexed align-items-center justify-content-between">
+                    <h2 class="ml-2 mb-0">VecTop</h2>
+                    <img
+                        src="{{ url_for('static', filename='img/logo_small.png') }}"
+                        class="logo">
+                    <a href="https://github.com/TheItCrOw/VecTop"
+                        title="See the GitHub repo"
+                        target="_blank"><i class="text-light fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4 main">
+            <div class="card w-100">
+                <div class="content">
+                    <p class="m-0">VecTop is a corpus of contextualized word
+                        embeddings labeled
+                        with topics and sub-topics. The cosine similarity
+                        predicts
+                        the topic and sub-topic labels by identifying the topics
+                        that are most closely related to the text that is being
+                        extracted from. It is therefore possible to
+                        automatically
+                        extract the topics of an unkown text and label it.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3" role="alert">
+                In contrast to other language models such as ChatGPT, VecTop
+                cites its source material.
+            </div>
+
+            <!-- input card -->
+            <div class="card w-100 mt-3">
+                <div class="content">
+                    <div
+                        class="flexed justify-content-between align-content-center">
+                        <h5 class="text-dark text-center mb-2 mr-2">Extract
+                            Topics</h5>
+                        <select
+                            class="lang-dropdown form-control w-auto border-bottom-0 rounded-0">
+                            <option value="en">English</option>
+                            <option value="de-DE">German</option>
+                        </select>
+                    </div>
+                    <textarea class="form-control m-0 rounded-0 text-textarea"
+                        placeholder="Your text..."
+                        style="min-height: 200px;"></textarea>
+                    <div
+                        class="w-100 flexed justify-content-end align-content-center">
+                        <button
+                            class="btn btn-warning mt-2 rounded-0 extract-topics-btn">Extract</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- result carc -->
+            <div
+                class="card result-div w-100 mt-3 alert alert-success display-none">
+                <div>
+                    <h5 class="mb-0 text-dark">Extracted Topics:</h5>
+                </div>
+                <hr class="mt-1 mb-2" />
+                <label class="mb-0 text-left">This text is about the following
+                    topics alongside their subtopics:</label>
+                <div class="content">
+                    <div
+                        class="row m-0 topics-result-container justify-content-center">
+                    </div>
+                </div>
+                <label class="mb-1 text-left mt-2">I have made my decision based
+                    on these texts which I deemed similar in context and meaning
+                    to
+                    your text:</label>
+                <div class="sources-list">
+
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/site.js') }}"></script>
+</html>

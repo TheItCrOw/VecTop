@@ -1,6 +1,7 @@
 private
 env
 src/embedder/openai_api_key.txt
+src/embedder/times_api_key.txt
 src/embedder/pg_connection_string.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -162,11 +162,14 @@ class vectop:
         # Extract the relevant topics
         tops = {}
         sub_tops = {}
+        sources = []
         c = 0
         for vec in sim:
-            # Index 5: main_topic, index 6: sub_topic, index 3: breadcrumbs
+            # Index 4:url, 5: main_topic, index 6: sub_topic, index 3: breadcrumbs
             t = vec[5]
             st = vec[6]
+            sources.append(vec[4])
+
             # Translate the topics for the english language then
             if(language == 'en'):
                 t = self.ger_eng_channels[t]
@@ -193,4 +196,4 @@ class vectop:
         for k, v in tops.items():
             if(v >= 2):
                 final_topics.append([k, list(set([i for i in sub_tops[k] if i != 'default']))])
-        return final_topics
+        return (final_topics, sources)

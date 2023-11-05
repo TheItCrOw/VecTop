@@ -1,0 +1,73 @@
+body {
+  background-color: ghostwhite;
+}
+
+* {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.main {
+  overflow-y: auto;
+}
+
+.flexed {
+  display: flex;
+}
+
+.display-none {
+  display: none;
+}
+
+.header {
+  background-color: rgb(32, 28, 28);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 100%;
+  padding: 6px;
+  text-align: center;
+  border-bottom: gray 1px solid;
+}
+
+.header img {
+  width: 65px;
+  filter: drop-shadow(0.5px 0.5px white);
+  text-align: center;
+}
+
+.header h2 {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.header i {
+  font-size: x-large;
+}
+
+.card {
+  border: 1px darkgray solid;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.card .content {
+  padding: 12px;
+}
+
+.topics-result-container {
+  padding-top: 8px;
+}
+
+.topics-result-container ul,
+li {
+  list-style-type: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.topics-result-container ul,
+li .main {
+  color: black;
+  font-weight: bold;
+}
