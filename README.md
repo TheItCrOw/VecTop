@@ -10,6 +10,7 @@
 # About
 
 VecTop is a corpus of contextualized word embeddings labeled with topics and sub-topics. The cosine similarity predicts the topic and sub-topic labels by identifying the topics that are most closely related to the text that is being extracted from. It is therefore possible to automatically extract the topics of an unkown text and label it. 
+Also refer to the [demo](https://vectop.bundestag-mine.de/) website.
 
 # Language Support
 
