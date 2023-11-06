@@ -16,7 +16,7 @@
 
         <title>VecTop Topic Extraction</title>
     </head>
-    <body>
+    <body class="pb-5">
         <div class="header">
             <div class="container">
                 <div class="flexed align-items-center justify-content-between">
@@ -43,12 +43,21 @@
                         extracted from. It is therefore possible to
                         automatically
                         extract the topics of an unkown text and label it.</p>
+                    <p class="mb-0">
+                        <b>Simply put: VecTop searches through its text
+                            collection, identifying topics by comparing which
+                            texts are the most similar to your own.
+                        </b>
+                    </p>
                 </div>
             </div>
 
             <div class="alert alert-info mt-3" role="alert">
                 In contrast to other language models such as ChatGPT, VecTop
-                cites its source material.
+                cites its source material.<br /> VecTop works best within the
+                German
+                domain (English is experimental for now), but a more detailled
+                English corpus is coming soon.
             </div>
 
             <!-- input card -->
@@ -60,15 +69,18 @@
                             Topics</h5>
                         <select
                             class="lang-dropdown form-control w-auto border-bottom-0 rounded-0">
-                            <option value="en">English</option>
                             <option value="de-DE">German</option>
+                            <option value="en">English</option>
                         </select>
                     </div>
                     <textarea class="form-control m-0 rounded-0 text-textarea"
                         placeholder="Your text..."
-                        style="min-height: 200px;"></textarea>
+                        style="min-height: 250px;"></textarea>
                     <div
-                        class="w-100 flexed justify-content-end align-content-center">
+                        class="w-100 flexed justify-content-between align-content-center">
+                        <button
+                            class="btn btn-outline-secondary rounded-0 mt-2 example-btn">Example
+                            Text</button>
                         <button
                             class="btn btn-warning mt-2 rounded-0 extract-topics-btn">Extract</button>
                     </div>
@@ -95,6 +107,46 @@
                     your text:</label>
                 <div class="sources-list">
 
+                </div>
+            </div>
+
+            <!-- others -->
+            <div class="card mt-3">
+                <div
+                    class="content flexed align-items-center justify-content-between">
+                    <p class="mb-0">
+                        VecTop is used by the <a
+                            class="text-dark font-weight-bold"
+                            href="https://bundestag-mine.de" target="_blank">Bundestags-Mine</a>,
+                        an analysis
+                        tool for German governmental data powered by Natural
+                        Language Processing and AI.
+                    </p>
+                    <a
+                        href="https://bundestag-mine.de" target="_blank">
+                        <img
+                            src="{{ url_for('static', filename='img/bundestags-mine.png') }}"
+                            class="bm-logo m-2">
+                    </a>
+                </div>
+            </div>
+
+            <!-- me -->
+            <div class="card mt-3">
+                <div class="content me">
+                    <div
+                        class="flexed justify-content-center align-items-baseline">
+                        <label class="mb-0">&copy; 2023 Kevin Bönisch</label>
+                        <a class="ml-2" href="https://github.com/TheItCrOw"
+                            target="_blank"><i class="text-dark fab fa-github"></i></a>
+                        <a class="ml-2"
+                            href="https://www.linkedin.com/in/kevin-b%C3%B6nisch-0a91751a3/"
+                            target="_blank"><i
+                                class="text-primary fab fa-linkedin"></i></a>
+                        <a class="ml-2"
+                            href="https://www.kaggle.com/kevinbnisch"
+                            target="_blank"><i class="text-info fab fa-kaggle"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

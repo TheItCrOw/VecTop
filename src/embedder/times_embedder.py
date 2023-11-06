@@ -8,7 +8,7 @@ from chatgpt import chatgpt_api
 from ny_times import times_api
 
 connection_string = ''
-start_date = date(2021, 9, 27)
+start_date = date(2020, 5, 27)
 end_date = date(2000, 1, 1)
 
 
