@@ -54,10 +54,15 @@
 
             <div class="alert alert-info mt-3" role="alert">
                 In contrast to other language models such as ChatGPT, VecTop
-                cites its source material.<br /> VecTop works best within the
-                German
-                domain (English is experimental for now), but a more detailled
-                English corpus is coming soon.
+                cites its source material.<br /> VecTop offers two corpora to
+                choose from: <b class="text-dark">Spiegel Online</b> and <b
+                    class="text-dark">New
+                    York Times</b>.
+                Both support all
+                languages, but is it advisable to use the Times corpus when
+                dealing with english text and the Spiegel corpus when using
+                german text. Also, the Times corpus extracts the topics more
+                subtly while Spiegel is more generic. Both have their use-cases.
             </div>
 
             <!-- input card -->
@@ -67,13 +72,21 @@
                         class="flexed justify-content-between align-content-center">
                         <h5 class="text-dark text-center mb-2 mr-2">Extract
                             Topics</h5>
-                        <select
-                            class="lang-dropdown form-control w-auto border-bottom-0 rounded-0">
-                            <option value="de-DE">German</option>
-                            <option value="en">English</option>
-                        </select>
+                        <div class="flexed">
+                            <select
+                                class="corpus-dropdown border-right-0 form-control w-auto border-bottom-0 rounded-0">
+                                <option value="spiegel_sum_1">Spiegel Online</option>
+                                <option value="times_sum_1">New York Times</option>
+                            </select>
+                            <select
+                                class="lang-dropdown form-control w-auto border-bottom-0 rounded-0">
+                                <option value="de-DE">German</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
                     </div>
-                    <textarea class="form-control m-0 rounded-0 text-textarea"
+                    <textarea
+                        class="form-control m-0 rounded-0 text-textarea"
                         placeholder="Your text..."
                         style="min-height: 250px;"></textarea>
                     <div
@@ -94,15 +107,18 @@
                     <h5 class="mb-0 text-dark">Extracted Topics:</h5>
                 </div>
                 <hr class="mt-1 mb-2" />
-                <label class="mb-0 text-left">This text is about the following
+                <label class="mb-0 text-left">This text is about the
+                    following
                     topics alongside their subtopics:</label>
                 <div class="content">
                     <div
                         class="row m-0 topics-result-container justify-content-center">
                     </div>
                 </div>
-                <label class="mb-1 text-left mt-2">I have made my decision based
-                    on these texts which I deemed similar in context and meaning
+                <label class="mb-1 text-left mt-2">I have made my decision
+                    based
+                    on these texts which I deemed similar in context and
+                    meaning
                     to
                     your text:</label>
                 <div class="sources-list">
@@ -138,14 +154,16 @@
                         class="flexed justify-content-center align-items-baseline">
                         <label class="mb-0">&copy; 2023 Kevin Bönisch</label>
                         <a class="ml-2" href="https://github.com/TheItCrOw"
-                            target="_blank"><i class="text-dark fab fa-github"></i></a>
+                            target="_blank"><i
+                                class="text-dark fab fa-github"></i></a>
                         <a class="ml-2"
                             href="https://www.linkedin.com/in/kevin-b%C3%B6nisch-0a91751a3/"
                             target="_blank"><i
                                 class="text-primary fab fa-linkedin"></i></a>
                         <a class="ml-2"
                             href="https://www.kaggle.com/kevinbnisch"
-                            target="_blank"><i class="text-info fab fa-kaggle"></i></a>
+                            target="_blank"><i
+                                class="text-info fab fa-kaggle"></i></a>
                     </div>
                 </div>
             </div>

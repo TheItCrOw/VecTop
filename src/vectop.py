@@ -118,6 +118,10 @@ class vectop:
             'Zeitgeist': 'Current Mindset',
             'Zeitzeugen': 'Time Witness'
         }
+        self.corpus_to_table = {
+            'spiegel_sum_1': 'spiegel_embeddings_summarized',
+            'times_sum_1': 'times_embeddings'
+        }
 
     def embed(self, text):
         response = openai.Embedding.create(
@@ -142,11 +146,14 @@ class vectop:
             sim = conn.execute('SELECT * FROM ' + sim_table + ' ORDER BY embedding <=> %s LIMIT 5', (vec,)).fetchall() 
             return sim
 
-    def extract_topics(self, text, language):
+    def extract_topics(self, text, language, corpus):
         '''Extract topics from a given text'''
         # Language code by: http://www.lingoes.net/en/translator/langcode.htm
         if(language not in ['de-DE', 'en']):
             raise Exception("Currently, only German and English is supported")
+
+        if(corpus not in ['spiegel_sum_1', 'times_sum_1']):
+            raise Exception("Unknown corpus: " + str(corpus) + " choose 'spiegel' or 'times'.")
 
         # First step is too check how long the text is. If it exceeds a
         # threshold of X sentences, summarize it.
@@ -157,7 +164,7 @@ class vectop:
 
         # Make the embeddings
         embedded = np.array(self.embed(final.strip()))
-        sim = self.get_sim(embedded, 'spiegel_embeddings_summarized')
+        sim = self.get_sim(embedded, self.corpus_to_table[corpus])
 
         # Extract the relevant topics
         tops = {}
@@ -165,13 +172,14 @@ class vectop:
         sources = []
         c = 0
         for vec in sim:
-            # Index 4:url, 5: main_topic, index 6: sub_topic, index 3: breadcrumbs
-            t = vec[5]
-            st = vec[6]
-            sources.append(vec[4])
+            # Spiegel: Index 4:url, 5: main_topic, index 6: sub_topic, index 3: breadcrumbs
+            # Times: Index 3:url, 4: main_topic, index 5: sub_topic, index 2: breadcrumbs
+            t = vec[(5 - 1 if corpus == 'times_sum_1' else 5)]
+            st = vec[(6 - 1 if corpus == 'times_sum_1' else 6)]
+            sources.append(vec[(4 - 1 if corpus == 'times_sum_1' else 4)])
 
-            # Translate the topics for the english language then
-            if(language == 'en'):
+            # Translate the topics for the english language
+            if(language == 'en' and corpus != 'times_sum_1'):
                 t = self.ger_eng_channels[t]
                 st = self.ger_eng_channels[st]
 

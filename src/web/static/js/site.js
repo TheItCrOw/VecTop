@@ -18,6 +18,7 @@ $(document).ready(function () {
 
         $('.result-div').hide(100);
         lang = $('.lang-dropdown').val();
+        corpus = $('.corpus-dropdown').val();
         text = $('.text-textarea').val();
         $btn = $(this);
         var oldHtml = $btn.html();
@@ -30,7 +31,7 @@ $(document).ready(function () {
             type: 'POST',
             contentType: 'application/json',
             url: '/api/extract',
-            data: JSON.stringify({ lang: lang, text: text }),
+            data: JSON.stringify({ lang: lang, text: text, corpus: corpus }),
             success: function (data) {
                 console.log(data);
                 if (data.status == 200) {

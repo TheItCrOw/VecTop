@@ -43,7 +43,7 @@ def insert_times_embedding(content,
         with conn.cursor() as cur:
             cur.execute(
                 "INSERT INTO " + 'times_embeddings' +
-                " (content, headline, breadcrumbs, url, channel, subchannel, intro, abstract, snippet, embedding_vector, article_id)" + 
+                " (content, headline, breadcrumbs, url, channel, subchannel, intro, abstract, snippet, embedding, article_id)" + 
                 " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (content,
                  headline,

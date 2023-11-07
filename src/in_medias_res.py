@@ -11,6 +11,8 @@ Deutschland hat seit 2022 einen Wachstumsnachlass von 1,5%, die Schulden werden 
 example_text_eng = '''
 Germany has experienced a 1.5% decline in growth since 2022 and its debt is getting bigger and bigger.
 '''
+# Options: times_sum_1 or spiegel_sum_1
+corpus = 'times_sum_1'
 
 
 def get_connection_string():
@@ -30,13 +32,13 @@ def get_labeled_speeches(offset):
 
 def ger_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text_ger, 'de-DE')[0]
+    topics = v.extract_topics(example_text_ger, 'de-DE', corpus)[0]
     print(topics)
 
 
 def eng_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text_eng, 'en')[0]
+    topics = v.extract_topics(example_text_eng, 'en', corpus)[0]
     print(topics)
 
 

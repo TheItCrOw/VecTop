@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 from vectop import vectop
 
-app = Flask(__name__, template_folder='./web/templates', static_folder='./web/static')
-
 
 def get_connection_string():
     with open('./embedder/pg_connection_string.txt', 'r') as f:
@@ -12,6 +10,10 @@ def get_connection_string():
 def get_openai_api_key():
     with open('./embedder/openai_api_key.txt', 'r') as f:
         return f.read()
+
+
+app = Flask(__name__, template_folder='./web/templates', static_folder='./web/static')
+vec = vectop(get_openai_api_key(), get_connection_string())
 
 
 # Define a route for the homepage
@@ -28,12 +30,12 @@ def extract_topic():
 
     try:
         if request.is_json:
-            vec = vectop(get_openai_api_key(), get_connection_string())
             data = request.get_json()
             lang = str(data.get('lang'))
             text = str(data.get('text'))
+            corpus = str(data.get('corpus'))
             # Here we extract the topics
-            res = vec.extract_topics(text, lang)
+            res = vec.extract_topics(text, lang, corpus)
             result['result'] = {
                 'topics': res[0],
                 'sources': res[1]
