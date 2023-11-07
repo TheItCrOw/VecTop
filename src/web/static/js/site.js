@@ -1,4 +1,5 @@
 var currentlyLoading = false;
+var legalCurrentlyLoading = false;
 
 $(document).ready(function () {
     console.log("All finished loading!")
@@ -12,15 +13,81 @@ $(document).ready(function () {
         }
     })
 
+    // Generate a little example text for legal as well
+    $('body').on('click', '.legal-example-btn', function () {
+        $('.legal-text-textarea').val('Kaution bei rauchenden Mietern.')
+    })
+
+    // Handle the extracting of legal references here
+    $('body').on('click', '.extract-references-btn', function () {
+        if (legalCurrentlyLoading) return;
+
+        $('.legal-result-div').hide(100);
+        var confidence = parseInt($('.legal-confidence-range').val());
+        var text = $('.legal-text-textarea').val();
+        var $btn = $(this);
+        var oldHtml = $btn.html();
+        $btn.html('Extracting...');
+        legalCurrentlyLoading = true;
+
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: '/api/legal/extract',
+            data: JSON.stringify({ text: text, confidence: confidence }),
+            success: function (data) {
+                console.log(data);
+                if (data.status == 200) {
+                    // Show the references
+                    var totalHtml = '<div>';
+                    data.result.references.forEach(item => {
+                        var ref = item[0];
+                        var res = item[1];
+                        var context = item[2];
+                        var tocs = item[3];
+
+                        var html = '<hr class="mb-2 mt-2"/><div class="legal-result-wrapper">';
+                        var header = '<div class="legal-result-header text-left flex-wrap flexed align-items-center justify-content-start">';
+                        header += '<i class="mr-3 fas fa-book-open text-dark"></i>'
+                        tocs.forEach(toc => {
+                            if (toc == '') return;
+                            header += `<span>${toc}<i class="ml-1 mr-1 fas fa-chevron-right text-dark"></i></span>`;
+                        })
+                        header += ` <span class="ref">${ref}</span>`;
+                        header += '</div>'
+                        html += header;
+
+                        var context = `<i class="text-dark mt-2 mb-2 fas fa-gavel"></i><p class="context">"${context}"</p>`;
+
+                        html += context + '</div>';
+                        totalHtml += html;
+                    });
+                    totalHtml += '</div>'
+                    $('.legal-result-div').show(100);
+                    $('.references-result-container').html(totalHtml);
+                }
+                $btn.html(oldHtml);
+                legalCurrentlyLoading = false;
+            },
+            error: function (error) {
+                $btn.html(oldHtml);
+                $('.legal-result-div').show(100);
+                legalCurrentlyLoading = false;
+                console.log(error);
+            }
+        });
+    })
+
     // Handle the extracting of topics here
     $('body').on('click', '.extract-topics-btn', function () {
         if (currentlyLoading) return;
 
         $('.result-div').hide(100);
-        lang = $('.lang-dropdown').val();
-        corpus = $('.corpus-dropdown').val();
-        text = $('.text-textarea').val();
-        $btn = $(this);
+        var lang = $('.lang-dropdown').val();
+        var corpus = $('.corpus-dropdown').val();
+        var confidence = parseInt($('.confidence-range').val());
+        var text = $('.text-textarea').val();
+        var $btn = $(this);
         var oldHtml = $btn.html();
         $btn.html('Extracting...');
         $('.topics-result-container').html('');
@@ -31,7 +98,7 @@ $(document).ready(function () {
             type: 'POST',
             contentType: 'application/json',
             url: '/api/extract',
-            data: JSON.stringify({ lang: lang, text: text, corpus: corpus }),
+            data: JSON.stringify({ lang: lang, text: text, corpus: corpus, confidence: confidence }),
             success: function (data) {
                 console.log(data);
                 if (data.status == 200) {
@@ -53,7 +120,7 @@ $(document).ready(function () {
                     var count = 1;
                     data.result.sources.forEach(source => {
                         $('.sources-list').append(
-                            `<a class="btn btn-light mr-1" href="${source}" target="_blank">Source ${count}</a>`)
+                            `<a class="mt-1 btn btn-light mr-1" href="${source}" target="_blank">Source ${count}</a>`)
                         count += 1;
                     });
                 }

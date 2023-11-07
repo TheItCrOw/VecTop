@@ -6,7 +6,7 @@ import openai
 import numpy as np
 
 
-class vectop:
+class Vectop:
 
     def __init__(self, openai_api_key, connection_string):
         self.nlp = spacy.load('de_core_news_sm')
@@ -140,13 +140,21 @@ class vectop:
             summary = summary + str(sentence) + ' '
         return summary.replace('\n', ' ').replace('\r', ' ')
 
-    def get_sim(self, vec, sim_table):
+    def get_sim(self, vec, sim_table, take):
         with psycopg.connect(self.connection_string) as conn:
             register_vector(conn)
-            sim = conn.execute('SELECT * FROM ' + sim_table + ' ORDER BY embedding <=> %s LIMIT 5', (vec,)).fetchall() 
+            sim = conn.execute('SELECT * FROM ' + sim_table + ' ORDER BY embedding <=> %s LIMIT ' + str(take), (vec,)).fetchall() 
             return sim
 
-    def extract_topics(self, text, language, corpus):
+    def sentinize(self, text):
+        '''Checks the content for sentences and summarizes it if needed'''
+        sentences = [str(i) for i in self.nlp(text).sents]
+        final = ' '.join(sentences)  # This is the text we will extract from
+        if(len(sentences) > self.max_sent):
+            final = self.tr_summarize(text, self.max_sent)
+        return final
+
+    def extract_topics(self, text, language, take, corpus):
         '''Extract topics from a given text'''
         # Language code by: http://www.lingoes.net/en/translator/langcode.htm
         if(language not in ['de-DE', 'en']):
@@ -155,16 +163,11 @@ class vectop:
         if(corpus not in ['spiegel_sum_1', 'times_sum_1']):
             raise Exception("Unknown corpus: " + str(corpus) + " choose 'spiegel' or 'times'.")
 
-        # First step is too check how long the text is. If it exceeds a
-        # threshold of X sentences, summarize it.
-        sentences = [str(i) for i in self.nlp(text).sents]
-        final = ' '.join(sentences)  # This is the text we will extract from
-        if(len(sentences) > self.max_sent):
-            final = self.tr_summarize(text, self.max_sent)
+        final = self.sentinize(text)
 
         # Make the embeddings
         embedded = np.array(self.embed(final.strip()))
-        sim = self.get_sim(embedded, self.corpus_to_table[corpus])
+        sim = self.get_sim(embedded, self.corpus_to_table[corpus], take)
 
         # Extract the relevant topics
         tops = {}

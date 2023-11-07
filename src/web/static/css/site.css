@@ -2,6 +2,10 @@ body {
   background-color: ghostwhite;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   color: rgba(0, 0, 0, 0.5);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -29,7 +33,7 @@ body {
   border-bottom: gray 1px solid;
 }
 
-.header img {
+.logo {
   width: 65px;
   filter: drop-shadow(0.5px 0.5px white);
   text-align: center;
@@ -78,4 +82,32 @@ li .main {
 
 .me i {
   font-size: large;
+}
+
+.range-container {
+  border-left: lightgray 1px solid;
+  border-top: lightgray 1px solid;
+  height: 100%;
+  padding-left: 12px;
+}
+
+.legal-result-wrapper {
+  padding: 12px;
+}
+
+.legal-result-wrapper .ref {
+  text-decoration: underline;
+  color: black;
+}
+
+.legal-result-wrapper .context {
+  padding-bottom: 0 !important;
+  font-style: italic;
+  margin-bottom: 0;
+  font-size: small;
+}
+
+.legal-result-header span {
+  word-break: break-all;
+  font-size: small;
 }

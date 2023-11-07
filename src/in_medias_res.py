@@ -1,4 +1,4 @@
-from vectop import vectop
+from vectop import Vectop
 import os
 import psycopg
 import uuid
@@ -32,13 +32,13 @@ def get_labeled_speeches(offset):
 
 def ger_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text_ger, 'de-DE', corpus)[0]
+    topics = v.extract_topics(example_text_ger, 'de-DE', 5, corpus)[0]
     print(topics)
 
 
 def eng_example(v):
     '''A simple example of vectop for one text'''
-    topics = v.extract_topics(example_text_eng, 'en', corpus)[0]
+    topics = v.extract_topics(example_text_eng, 'en', 5, corpus)[0]
     print(topics)
 
 
@@ -78,6 +78,6 @@ def extract_from_many(v):
 
 
 if __name__ == "__main__":
-    v = vectop(get_openai_api_key(), get_connection_string())
+    v = Vectop(get_openai_api_key(), get_connection_string())
     print("Loaded VecTop module")
     eng_example(v)

@@ -1,6 +1,8 @@
 private
 env
+src/legal_vectop.py
 src/embedder/openai_api_key.txt
+src/embedder/legal_embedder.py
 src/embedder/times_api_key.txt
 src/embedder/pg_connection_string.txt
 # Byte-compiled / optimized / DLL files
