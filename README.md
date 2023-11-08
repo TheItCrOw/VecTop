@@ -108,7 +108,11 @@ The following topics and their subtopics are used by VecTop to label texts (germ
 
 Version 1 of the German Summarized Spiegel Embeddings Corpus is now available for download and usage. This version contains >200k articles (2017-10-01 -> 2023-10-23) which have been firstly summarized with TextRank and then embedded with OpenAI's ```text-embedding-ada-002```. Testing VecTop on 100 speeches of the German Parliament to extract topics showed a **98%** correctness on main topics and **93%** correctness on subtopics.
 
-## Usage
+# English Corpus V1
+
+Version 1 of the English NY Times Embeddings Corpus is now available for download and usage. This version contains >250k articles which have been embedded with OpenAI's ```text-embedding-ada-002```. 
+
+# Usage
 
 * Download the Corpus ([German](https://www.kaggle.com/datasets/kevinbnisch/vectordb-for-topic-extraction-with-word-embeddings/data) | [English](https://www.kaggle.com/datasets/kevinbnisch/ny-times-vectordb-for-topic-extraction/data))
 * Import the .sql into a PostgresSQL database with the [pgVector](https://github.com/pgvector/pgvector) extension installed.
@@ -121,8 +125,3 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
 * Extract Topics!
 
 🟥 **This is a first version of the VecTop corpus which hasn't been evaluated thoroughly yet.** 🟥
-
-# English Corpus V1
-
-Versio 1 of the English NY Times Embeddings Corpus is now available for download and usage. This version contains >250k articles which have been embedded with OpenAI's ```text-embedding-ada-002```. 
-
