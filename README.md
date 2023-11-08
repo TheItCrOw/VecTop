@@ -110,7 +110,7 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
 
 ## Usage
 
-* [Download](https://www.kaggle.com/datasets/kevinbnisch/vectordb-for-topic-extraction-with-word-embeddings/data) the Corpus
+* Download the Corpus ([German](https://www.kaggle.com/datasets/kevinbnisch/vectordb-for-topic-extraction-with-word-embeddings/data) | [English](https://www.kaggle.com/datasets/kevinbnisch/ny-times-vectordb-for-topic-extraction/data))
 * Import the .sql into a PostgresSQL database with the [pgVector](https://github.com/pgvector/pgvector) extension installed.
   - You can of course import the corpus into any DB of your liking, just make sure the DB can handle vectors.
   - As an alternative, the corpus can also be downloaded as a .csv file.
@@ -124,6 +124,5 @@ Version 1 of the German Summarized Spiegel Embeddings Corpus is now available fo
 
 # English Corpus V1
 
-Coming soon.
-
+Versio 1 of the English NY Times Embeddings Corpus is now available for download and usage. This version contains >250k articles which have been embedded with OpenAI's ```text-embedding-ada-002```. 
 
