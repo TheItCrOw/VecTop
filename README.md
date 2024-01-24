@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://github.com/TheItCrOw/VecTop/assets/49918134/17060134-5891-464b-be97-47c095d4a719"/>
   <hr/>
-  <h1>Vector Database for Topic Extraction using Contextualized Word Embeddings</h1>
+  <h1>Vector Database for Topic Search using Contextualized Word Embeddings</h1>
 </div
 
 [![License](https://img.shields.io/badge/Status-Under%20construction-red)]()
